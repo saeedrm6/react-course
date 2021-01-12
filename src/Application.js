@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import HighScore from './HighScore';
 
 class Application extends Component {
     constructor(props) {
@@ -31,6 +32,11 @@ class Application extends Component {
 
     */
 
+    resetCount = (e) => {
+        console.log("Event is ",e);
+        this.setState({count:0 , overFive:false})
+    }
+
     handleClick = () => {
         this.setState({ count: this.state.count + 1 })
     }
@@ -41,7 +47,7 @@ class Application extends Component {
         */
 
         if (this.state.count > 5 && this.state.count != state.count && !this.state.overFive) {
-            this.setState({overFive: true})
+            this.setState({ overFive: true })
         }
     }
 
@@ -56,10 +62,11 @@ class Application extends Component {
                         <button onClick={this.handleClick}>Click Me</button>
                     </span>
                 </h2>
-                {(this.state.overFive) ?
-                    <h5>Beat hight score of 5!</h5>
-                    : null
-                }
+                <HighScore
+                    overFive={this.state.overFive}
+                    onReset={(e) => this.resetCount(e)}
+                />
+
             </header>
         );
     }
